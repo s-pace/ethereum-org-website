@@ -15,7 +15,13 @@
         @nav-toggle="handleNavToggle(false)"
         @dark-mode-toggle="$emit('dark-mode-toggle')"
       />
-
+      
+      <AlgoliaSearchBox
+        v-if="isAlgoliaSearch"
+        :options="algolia"
+      />
+      <SearchBox v-else-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false" />
+      
       <span
         :class="{
           'icon-link icon-menu l-up-mr-05 l-up-hidden': true,
@@ -35,9 +41,15 @@
 
 <script>
 import NavLinks from './NavLinks.vue'
+import AlgoliaSearchBox from '@AlgoliaSearchBox'
+import SearchBox from '@SearchBox'
 
 export default {
-  components: { NavLinks },
+  components: { 
+    NavLinks 
+    SearchBox,
+    AlgoliaSearchBox
+  },
   props: {
     isDarkMode: {
       type: Boolean,
